@@ -1,0 +1,18 @@
+<button mat-button routerLink ="/">Go back</button>
+<div class="mat-card-div">
+  <mat-card class="order-card" *ngIf="order">
+    <mat-card-title>{{order.title | uppercase }}</mat-card-title>
+    <mat-card-subtitle> Order Id: {{order.id}}</mat-card-subtitle>
+    <mat-card-content>
+      <p> Customer: {{order.customer}}</p>
+      <p>Price: {{order.price}} $</p>
+      <p>Date: {{order.date}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="warn" (click)="deleteOrder()">delete</button>
+      <button mat-button color="primary" [routerLink] ="['/edit', order.id]">Update</button>
+      <button mat-button color="primary" (click) ="onClose()">Close order</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+ 

@@ -1,0 +1,92 @@
+<mat-toolbar color="primary">
+    <span>Angular Orders</span> 
+    <span class = "spacer"></span>
+   
+         <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="search($event)" #input>
+        <mat-icon>search</mat-icon>
+      </mat-form-field>
+      <span class="spacer"></span>
+    <button mat-button>Log out</button>
+    
+  
+</mat-toolbar>
+
+<div class="centered-content">
+    <div class="menu">
+      <button mat-button [matMenuTriggerFor]="filter">Filter orders</button>
+      <mat-menu #filter="matMenu">
+          <button mat-menu-item (click)="showAll()">All</button>
+          <button mat-menu-item (click)="showOpenedOrders()">Opened orders</button>
+          <button mat-menu-item (click)="showClosedOrders()">Closed orders</button>
+      </mat-menu>
+    </div>
+    <table mat-table [dataSource]="ordersData">
+
+        <!-- Id column -->
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let orders"> {{orders.id}} </td>
+          </ng-container>
+        
+          <!-- Ttile Column -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let orders"> {{orders.title}} </td>
+          </ng-container>
+        
+          <!-- Csutomer Column -->
+          <ng-container matColumnDef="customer">
+            <th class ="width-text-area" mat-header-cell *matHeaderCellDef> Customer </th>
+            <td class ="width-text-area" mat-cell *matCellDef="let orders"> {{orders.customer}} </td>
+          </ng-container>
+        
+          <!-- status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Opened </th>
+            <td mat-cell *matCellDef="let orders">
+               <button mat-button >{{orders.status}}</button>
+               
+               
+              
+             </td>
+          </ng-container>
+
+          <!--Date column-->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let orders"> {{orders.date}} </td>
+          </ng-container>
+        
+          <!-- price Column -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Price </th>
+            <td mat-cell *matCellDef="let orders"> {{orders.price}}$ </td>
+          </ng-container>
+
+            <ng-container matColumnDef="details">
+            <th mat-header-cell *matHeaderCellDef> Details </th>
+            <td mat-cell *matCellDef="let orders"> <button  mat-button color="primary" [disabled]="orders.status === false" routerLink="/details/{{orders.id}}">See details</button> </td>
+          </ng-container> 
+
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef> Edit order </th>
+            <td mat-cell *matCellDef="let orders"> <button mat-button color="accent" [disabled]="orders.status === false" [routerLink] ="['/edit', orders.id]">Edit</button> </td>
+          </ng-container> 
+
+          <!-- <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <td mat-cell *matCellDef="let orders"> <button mat-button color="warn" (click)="onDelete(orders.id)">Delete</button> </td>
+          </ng-container>  -->
+         
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  <button mat-button color="primary" routerLink="/create">Place a new order</button>
+
+  <mat-paginator #pagination [length]="length" [pageSize]="pageSize"[pageSizeOptions]="pageSizeOptions" (page)="onPaginateChange($event)">
+</mat-paginator>
+
+</div>
+

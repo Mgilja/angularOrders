@@ -1,0 +1,41 @@
+
+<button mat-button routerLink="/">Home</button>
+<mat-card>
+    <form [formGroup]="form" (submit)="onAddOrder()">
+       <mat-form-field>
+           <input matInput 
+           type="text"
+           formControlName="title"
+           placeholder="order title">
+           <mat-error *ngIf ="form.get('title')?.invalid">Please enter a post title</mat-error>
+       </mat-form-field>
+       
+        <mat-form-field>
+            <input matInput 
+            type="text"
+            formControlName="customer"
+            placeholder="order customer">
+            <mat-error *ngIf ="form.get('customer')?.invalid">Please enter a cutomer</mat-error>
+        </mat-form-field>
+       
+            <mat-form-field>
+                <input matInput 
+                type="text"
+                formControlName="price"
+                placeholder="order price">
+                <mat-error *ngIf ="form.get('price')?.invalid">Please enter a price</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput 
+                type="text"
+                formControlName="date"
+                placeholder="order date">
+                <mat-error *ngIf ="form.get('date')?.invalid">Please enter a date</mat-error>
+                
+            </mat-form-field>
+             
+       <button mat-button color="primary" type="submit">Save</button>
+        
+    </form>
+</mat-card>
